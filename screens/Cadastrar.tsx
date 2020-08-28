@@ -271,32 +271,29 @@ const estilo = StyleSheet.create({
 });
 
 function efetuarCadastro() {
-  fetch(
-    "http://192.168.0.13/projeto_loja_mobile/service/cadastro/cadastro.php",
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomecliente: nome,
-        cpf: cpf,
-        sexo: sx,
-        telefone: tel,
-        email: em,
-        tipo: tp,
-        logradouro: lg,
-        numero: nu,
-        complemento: cp,
-        bairro: ba,
-        cep: cep,
-        nomeusuario: us,
-        senha: sh,
-        foto: ft,
-      }),
-    }
-  )
+  fetch("http://192.168.0.13/projeto_loja_mobile/service/cadastro/cadastro.php", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomecliente: nome,
+      cpf: cpf,
+      sexo: sx,
+      telefone: tel,
+      email: em,
+      tipo: tp,
+      logradouro: lg,
+      numero: nu,
+      complemento: cp,
+      bairro: ba,
+      cep: cep,
+      nomeusuario: us,
+      senha: sh,
+      foto: ft,
+    }),
+  })
     .then((response) => response.json())
     .then((resposta) => {
       console.log(resposta);

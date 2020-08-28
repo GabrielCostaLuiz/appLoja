@@ -1,13 +1,20 @@
-import { FontAwesome5 } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import * as React from "react";
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+
+import Inicial from "../screens/Inicial";
+import Perfil from "../screens/Perfil";
+import Carrinho from "../screens/Carrinho";
+import PedidosRealizados from "../screens/PedidosRealizados";
+
+import Login from "../screens/Login";
+import Cadastrar from "../screens/Cadastrar";
+
+import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,20 +23,64 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      initialRouteName="Inicial"
+      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+    >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Inicial"
+        component={InicialNavegador}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="md-home" color={color} />
+          ),
         }}
       />
+
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Carrinho"
+        component={CarrinhoNavegador}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-cart" color={color} />
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="PedidosRealizados"
+        component={PedidosRealizadosNavegador}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-list" color={color} />
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Perfil"
+        component={PerfilNavegador}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-contact" color={color} />
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Login"
+        component={LoginNavegador}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-alarm" color={color} />
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Cadastrar"
+        component={CadastrarNavegador}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon2 name="adn" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -42,32 +93,87 @@ function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
+function TabBarIcon2(props: { name: string; color: string }) {
+  return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
 
-function TabOneNavigator() {
+const InicialStack = createStackNavigator();
+function InicialNavegador() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <InicialStack.Navigator>
+      <InicialStack.Screen
+        name="Inicial"
+        component={Inicial}
+        options={{ headerTitle: "App Venda" }}
       />
-    </TabOneStack.Navigator>
+    </InicialStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
+const PerfilStack = createStackNavigator();
+function PerfilNavegador() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <PerfilStack.Navigator>
+      <PerfilStack.Screen
+        name="Perfil"
+        component={Perfil}
+        options={{ headerTitle: "Perfil" }}
       />
-    </TabTwoStack.Navigator>
+    </PerfilStack.Navigator>
+  );
+}
+
+const CarrinhoStack = createStackNavigator();
+function CarrinhoNavegador() {
+  return (
+    <CarrinhoStack.Navigator>
+      <CarrinhoStack.Screen
+        name="Carrinho"
+        component={Carrinho}
+        options={{ headerTitle: "Carrinho" }}
+      />
+    </CarrinhoStack.Navigator>
+  );
+}
+
+const PedidosRealizadosStack = createStackNavigator();
+function PedidosRealizadosNavegador() {
+  return (
+    <PedidosRealizadosStack.Navigator>
+      <PedidosRealizadosStack.Screen
+        name="PedidosRealizados"
+        component={PedidosRealizados}
+        options={{ headerTitle: "Pedidos Realizados" }}
+      />
+    </PedidosRealizadosStack.Navigator>
+  );
+}
+
+const LoginStack = createStackNavigator();
+function LoginNavegador() {
+  return (
+    <LoginStack.Navigator>
+      <LoginStack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerTitle: "Login" }}
+      />
+    </LoginStack.Navigator>
+  );
+}
+
+const CadastrarStack = createStackNavigator();
+function CadastrarNavegador() {
+  return (
+    <CadastrarStack.Navigator>
+      <CadastrarStack.Screen
+        name="Cadastrar"
+        component={Cadastrar}
+        options={{ headerTitle: "Cadastrar" }}
+      />
+    </CadastrarStack.Navigator>
   );
 }
