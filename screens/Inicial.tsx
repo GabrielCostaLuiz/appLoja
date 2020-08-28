@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Text, View } from "../components/Themed";
-import { Image, StyleSheet, ActivityIndicator } from "react-native";
+import { Image, StyleSheet, ActivityIndicator, Button } from "react-native";
 import { ScrollView, FlatList } from "react-native-gesture-handler";
+import NumberFormat from "react-number-format";
 
 export default function Inicial() {
   const [carregado, setCarregado] = React.useState(true);
@@ -33,10 +34,21 @@ export default function Inicial() {
             data={dados}
             renderItem={({ item }) => (
               <View>
-                <Image source={require("../assets/images/monitor1.png")} />
-                <Text>
-                  Nome:{item.nomeproduto} | {item.preco} | {item.foto}
-                </Text>
+                <Image
+                  source={{
+                    uri: `http://192.168.0.13/projeto_loja_mobile/img/${item.foto}`,
+                  }}
+                  style={tela.img}
+                />
+                <Text style={tela.nome}>{item.nomeproduto}</Text>
+
+                <NumberFormat
+                  value={item.preco}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"R$"}
+                  renderText={(valor) => <Text>{valor}</Text>}
+                />
               </View>
             )}
             keyExtractor={({ idproduto }, index) => idproduto}
@@ -49,4 +61,10 @@ export default function Inicial() {
 
 const tela = StyleSheet.create({
   imagem: {},
+  img: {
+    width: 100,
+    height: 100,
+    flex: 1,
+    resizeMode: "contain",
+  },
 });
